@@ -1,0 +1,30 @@
+#!/bin/bash 
+ 
+set -e 
+ 
+print() { 
+    echo -e "\033[1;36m$@\033[0m" 
+} 
+ 
+prompt() { 
+    echo -en "\033[1;32m$@\033[0m" 
+} 
+ 
+APP_DIRECTORY=/var/www/example-website 
+GIT_DIRECTORY=$PWD 
+mkdir -p $APP_DIRECTORY 
+ 
+print "1. updating files..." 
+git --work-tree=$APP_DIRECTORY --git-dir=$GIT_DIRECTORY checkout -f master 
+sudo chown -R www-data:www-data $APP_DIRECTORY 
+sudo chmod -R g+w $APP_DIRECTORY 
+ 
+print "2. building project..." 
+cd $APP_DIRECTORY 
+npm install 
+npm run build-min 
+ 
+print "3. restarting service.."  
+sudo systemctl restart example-website 
+ 
+print "4. project deployed..."

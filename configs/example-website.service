@@ -1,0 +1,17 @@
+# /etc/systemd/system
+
+[Unit]
+Description=example-website
+
+[Service]
+WorkingDirectory=/var/www/example-website
+Environment=NODE_ENV=production
+User=www-data
+Group=www-data
+ExecStart=/usr/bin/node server.js
+ExecStopPost=+/bin/bash -c 'mail -s "website down" root <<< "$(systemctl status example-website)"; sleep 1s; exim -q &'
+SyslogIdentifier=example-website
+
+[Install]
+WantedBy=multi-user.target
+
