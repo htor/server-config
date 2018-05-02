@@ -32,7 +32,7 @@ server {
     ssl_certificate_key /etc/letsencrypt/live/example.no/privkey.pem;
     server_name example.no;
     access_log /var/log/example-website/access.log;
-    error_log /var/log/example.website/error.log;
+    error_log /var/log/example-website/error.log;
     charset utf-8;
     add_header "X-UA-Compatible" "IE=Edge";
     add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
