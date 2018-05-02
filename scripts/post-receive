@@ -16,15 +16,16 @@ mkdir -p $APP_DIRECTORY
  
 print "1. updating files..." 
 git --work-tree=$APP_DIRECTORY --git-dir=$GIT_DIRECTORY checkout -f master 
-sudo chown -R www-data:www-data $APP_DIRECTORY 
-sudo chmod -R g+w $APP_DIRECTORY 
  
 print "2. building project..." 
 cd $APP_DIRECTORY 
 npm install 
 npm run build-min 
+sudo chown -R www-data:www-data $APP_DIRECTORY 
+sudo chmod -R g+w $APP_DIRECTORY 
  
 print "3. restarting service.."  
+sudo systemctl daemon-reload
 sudo systemctl restart example-website 
  
 print "4. project deployed..."
